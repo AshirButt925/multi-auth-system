@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/optimize', function(){
+    \Artisan::call('optimize:clear');
+});
 Route::get('/', [WelcomeController::class, 'index']);
 
 Auth::routes();
@@ -31,9 +33,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'role:admin
     Route::get('/get-customers', [AdminController::class, 'getCustomers'])->name('get.customers');
     Route::post('/store-customer', [AdminController::class, 'storeCustomer'])->name('store.customer');
     Route::delete('/delete-customer', [AdminController::class, 'deleteCustomer'])->name('delete.customer');
+    Route::get('/orders', [AdminController::class, 'getOrders'])->name('orders');
 });
 
 //Customer Routes Group
 Route::group(['prefix' => 'customer', 'as' => 'customer.', 'middleware' => 'role:customer'], function(){
     Route::get('/home', [CustomerController::class, 'home'])->name('home');
+    Route::get('/place-order', [CustomerController::class, 'placeOrderIndex'])->name('place.order');
+    Route::post('/place-order', [CustomerController::class, 'placeOrderStore'])->name('place.order.store');
 });

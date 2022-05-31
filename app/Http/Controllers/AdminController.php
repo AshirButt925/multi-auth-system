@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -117,5 +118,10 @@ class AdminController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    public function getOrders(){
+        $orders = Order::all();
+        return view('backend.admin.order.index', get_defined_vars());
     }
 }

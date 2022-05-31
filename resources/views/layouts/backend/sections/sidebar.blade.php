@@ -40,6 +40,23 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item menu-open">
+                        <a href="{{route('admin.orders')}}" class="nav-link {{request()->is('admin/orders') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Orders
+                            </p>
+                        </a>
+                    </li>
+                @elseif(Auth::user()->type == 'customer')
+                    <li class="nav-item menu-open">
+                        <a href="{{route('customer.place.order')}}" class="nav-link {{request()->is('customer/place-order') ? 'active' : ''}}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                               Place Order
+                            </p>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </nav>
